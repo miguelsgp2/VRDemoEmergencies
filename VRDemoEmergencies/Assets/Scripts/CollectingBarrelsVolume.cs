@@ -2,11 +2,11 @@
 
 public class CollectingBarrelsVolume : MonoBehaviour
 {
-    private AudioSource audioSource;
+    private AudioSource alarmAudioSource;
 
     private void Start()
     {
-        audioSource = GetComponentInParent<AudioSource>();
+        alarmAudioSource = AudioManager.instance.
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,5 +25,10 @@ public class CollectingBarrelsVolume : MonoBehaviour
             Debug.Log("Collection Correct");
             audioSource.Play();
         }
+    }
+
+    private void StartAlarm()
+    {
+
     }
 }

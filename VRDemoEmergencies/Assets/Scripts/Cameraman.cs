@@ -11,8 +11,8 @@ public class Cameraman : MonoBehaviour
     private void TakeMainCamera()
     {
         Camera.main.transform.SetParent(CameraHoldingPosition);
-        Camera.main.transform.position = Vector3.zero;
-        Camera.main.transform.rotation = Quaternion.identity;
+        Camera.main.transform.localPosition = Vector3.zero;
+        Camera.main.transform.localRotation = Quaternion.identity;
 
     }
     private void Update()
@@ -26,12 +26,12 @@ public class Cameraman : MonoBehaviour
     }
 
 
-/// <summary>
-/// Returns the rotation angle of given device axis. Use Vector3.right to obtain pitch, Vector3.up for yaw and Vector3.forward for roll.
-/// This is for landscape mode. Up vector is the wide side of the phone and forward vector is where the back camera points to.
-/// </summary>
-/// <returns>A scalar value, representing the rotation amount around specified axis.</returns>
-/// <param name="axis">Should be either Vector3.right, Vector3.up or Vector3.forward. Won't work for anything else.</param>
+    /// <summary>
+    /// Returns the rotation angle of given device axis. Use Vector3.right to obtain pitch, Vector3.up for yaw and Vector3.forward for roll.
+    /// This is for landscape mode. Up vector is the wide side of the phone and forward vector is where the back camera points to.
+    /// </summary>
+    /// <returns>A scalar value, representing the rotation amount around specified axis.</returns>
+    /// <param name="axis">Should be either Vector3.right, Vector3.up or Vector3.forward. Won't work for anything else.</param>
     float GetAngleByDeviceAxis(Vector3 axis)
     {
         Quaternion deviceRotation = DeviceRotation.GetQuaternion();

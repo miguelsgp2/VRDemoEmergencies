@@ -12,6 +12,7 @@ public class Valve : MonoBehaviour
     void Start()
     {
         valveOpenessPerCent = 100;
+        ValveOpenessModifiedEvent.Invoke();
     }
 
     // Update is called once per frame
