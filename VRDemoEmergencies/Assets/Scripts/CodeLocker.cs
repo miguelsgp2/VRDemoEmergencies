@@ -29,43 +29,59 @@ public class CodeLocker : EmergencyScenarioQuestObject
         {
             case CodeSystemKeys.RESET:
                 verifiableString.EraseCurrentString();
+                AudioManager.instance.PlayEffect("keyCodeCancel", transform.position, "Effects");
                 break;
             case CodeSystemKeys.ENTER:
                 if (verifiableString.IsCurrentStringValidPassword())
                 {
                     GrantAccess();
+                    AudioManager.instance.PlayEffect("KeyCodeAccepted", transform.position, "Effects");
+                }
+                else
+                {
+                    AudioManager.instance.PlayEffect("keyCodeCancel", transform.position, "Effects");
                 }
                 verifiableString.EraseCurrentString();
                 break;
             case CodeSystemKeys.ZERO:
                 verifiableString.AddStringToTheRight("0");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position,"Effects");
                 break;
             case CodeSystemKeys.ONE:
                 verifiableString.AddStringToTheRight("1");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.TWO:
                 verifiableString.AddStringToTheRight("2");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.THREE:
                 verifiableString.AddStringToTheRight("3");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.FOUR:
                 verifiableString.AddStringToTheRight("4");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.FIVE:
                 verifiableString.AddStringToTheRight("5");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.SIX:
                 verifiableString.AddStringToTheRight("6");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.SEVEN:
                 verifiableString.AddStringToTheRight("7");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.EIGHT:
                 verifiableString.AddStringToTheRight("8");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             case CodeSystemKeys.NINE:
                 verifiableString.AddStringToTheRight("9");
+                AudioManager.instance.PlayEffect("KeyNumberBeep", transform.position, "Effects");
                 break;
             default:
                 break;
