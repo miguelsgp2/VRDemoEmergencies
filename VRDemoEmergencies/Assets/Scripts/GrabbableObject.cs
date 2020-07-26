@@ -9,9 +9,11 @@ public class GrabbableObject : MonoBehaviour, Interactable
     ScreenAim screenAim;
     private bool isGrabbed;
 
-    private float distaceToPlayerWhenGrabbed = 10f;
+    private float distaceToPlayerWhenGrabbed = 6f;
 
     Transform playerTransform;
+    public float forceProportionalController = 100f;
+    public float maxSpeedGrabbed = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +26,39 @@ public class GrabbableObject : MonoBehaviour, Interactable
     // Update is called once per frame
     void Update()
     {
+        //if (isGrabbed)
+        //{
+        //    //Debug.Log("grabbed");
+        //    MoveToPositionOfScreenAim();
+        //}
+    }
+
+    private void FixedUpdate()
+    {
         if (isGrabbed)
         {
             //Debug.Log("grabbed");
-            MoveToPositionOfScreenAim();
+            //MoveToPositionOfScreenAim();
+            PushToPositionRelativeToScreenAim();
         }
+    }
+    private void PushToPositionRelativeToScreenAim()
+    {
+
+        var directionToPlayer = playerTransform.rotation * Vector3.forward;
+        var targetPosition = playerTransform.position + directionToPlayer * distaceToPlayerWhenGrabbed;
+
+        targetPosition = new Vector3(targetPosition.x, Mathf.Clamp(targetPosition.y, 1.0f, Mathf.Infinity), targetPosition.z);
+
+        //transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
+
+        var errorPosition = targetPosition - transform.position;
+
+        var forceToApply = errorPosition * forceProportionalController;
+
+        rigidBody.AddForce(forceToApply);
+        rigidBody.velocity = errorPosition.magnitude * Mathf.Clamp(rigidBody.velocity.magnitude, 0f, maxSpeedGrabbed) * rigidBody.velocity.normalized;
+
     }
 
     private void MoveToPositionOfScreenAim()
