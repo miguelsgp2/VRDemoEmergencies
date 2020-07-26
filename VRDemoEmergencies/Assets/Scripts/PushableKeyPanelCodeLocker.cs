@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using Microsoft.Win32.SafeHandles;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PushableKeyPanelCodeLocker : MonoBehaviour, Interactable
@@ -6,11 +8,21 @@ public class PushableKeyPanelCodeLocker : MonoBehaviour, Interactable
     public CodeSystemKeys keyAssociated;
     private CodeLocker codeSystemAssociated;
     public TextMeshProUGUI displayedkey;
+    Color originalColorDisplayed;
 
     private void Start()
     {
         codeSystemAssociated = GetComponentInParent<CodeLocker>();
+        originalColorDisplayed = displayedkey.color;
         UpdatestringDisplayed();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Interact();
+        }
     }
 
     private void UpdatestringDisplayed()
@@ -29,6 +41,7 @@ public class PushableKeyPanelCodeLocker : MonoBehaviour, Interactable
 
     public void Interact()
     {
+        PushedMovement();
         SendInformationToCodeLockerSystem();
     }
 
@@ -78,6 +91,51 @@ public class PushableKeyPanelCodeLocker : MonoBehaviour, Interactable
         }
 
         return keycodeCodified;
+    }
+
+    private void PushedMovement()
+    {
+        StartCoroutine(SpringAlikeMovement());
+        StartCoroutine(LetterDisplayedColored());
+    }
+
+    private IEnumerator SpringAlikeMovement()
+    {
+        float duration = 0.2f;
+        float maxDisplacement = -0.053f;
+        float halfDuration = duration / 2f;
+        float speed = maxDisplacement / halfDuration;
+        float timer = 0;
+
+        while(timer < duration)
+        {
+            if(timer<halfDuration)
+            {
+                if(transform.localPosition.z > maxDisplacement)
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + speed * Time.deltaTime);
+            }
+            else
+            {
+                if (transform.localPosition.z < maxDisplacement)
+                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - speed * Time.deltaTime);
+            }
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
+        
+    }
+
+    private IEnumerator LetterDisplayedColored()
+    {
+        
+
+        var pushedButtonColor = new Color();
+        ColorUtility.TryParseHtmlString("#00FFB8", out pushedButtonColor);
+        displayedkey.color = pushedButtonColor;
+            yield return new WaitForSeconds(0.2f);
+        displayedkey.color = originalColorDisplayed;
+
     }
 
 
