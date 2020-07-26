@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class Valve : MonoBehaviour
 {
-    private float valveOpenessPerCent;
+    private float valveOpenessPerCent = 100f;
     public UnityEvent ValveOpenessModifiedEvent = new UnityEvent();
 
     // Start is called before the first frame update

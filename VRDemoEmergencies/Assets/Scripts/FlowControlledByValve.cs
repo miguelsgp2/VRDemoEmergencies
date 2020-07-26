@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FlowControlledByValve : MonoBehaviour
+public class FlowControlledByValve : EmergencyScenarioQuestObject
 {
     public ParticleSystem waterFlowParticleSystem;
     public Valve associatedValve;
@@ -16,13 +16,19 @@ public class FlowControlledByValve : MonoBehaviour
 
     private void OnValveOpenessModifiedTriggered()
     {
-        //Debug.Log("chaning particle system");
-        currentParticlesFlow = Mathf.RoundToInt(maxParticlesFlow * associatedValve.GetValveOpenessPerCent() / 100f);
+        var valveOpenessPerCent = associatedValve.GetValveOpenessPerCent();
+
+        currentParticlesFlow = Mathf.RoundToInt(maxParticlesFlow * valveOpenessPerCent / 100f);
         var emission = waterFlowParticleSystem.emission;
         emission.rateOverTime = (float)currentParticlesFlow;
 
         var particlesSpeed = maxparticlesSpeed * (associatedValve.GetValveOpenessPerCent() / 100f);
         var main = waterFlowParticleSystem.main;
         main.startSpeed = particlesSpeed;
+
+        if(valveOpenessPerCent <= 0)
+        {
+            myEmergencyScenario.ScenarioCompleted();
+        }
     }
 }

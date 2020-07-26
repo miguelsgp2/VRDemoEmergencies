@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class CodeLocker : MonoBehaviour
+public class CodeLocker : EmergencyScenarioQuestObject
 {
     public TextMeshProUGUI displayScreenText;
     public Light accessLight; 
@@ -20,7 +20,6 @@ public class CodeLocker : MonoBehaviour
         var codeSystemKeyActivated = pushedKey.GetKeyCodeSystemAssociated();
         ProcessKeyCode(codeSystemKeyActivated);
         UpdateTextDisplayed();
- 
 
     }
 
@@ -81,6 +80,7 @@ public class CodeLocker : MonoBehaviour
     private void GrantAccess()
     {
         accessLight.color = Color.green;
+        myEmergencyScenario.ScenarioCompleted();
     }
 
     private class VerifiableString

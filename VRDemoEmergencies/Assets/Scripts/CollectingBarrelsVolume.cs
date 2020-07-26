@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
-public class CollectingBarrelsVolume : MonoBehaviour
+public class CollectingBarrelsVolume : EmergencyScenarioQuestObject
 {
     private AudioSource alarmAudioSource;
-    private AudioSource audioSource;
 
     private void Start()
     {
         //alarmAudioSource = AudioManager.instance.
-        audioSource = GetComponent<AudioSource>();
+        alarmAudioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -16,7 +15,8 @@ public class CollectingBarrelsVolume : MonoBehaviour
         if (other.GetComponent<ToxicChemical>())
         {
             Debug.Log("Collection Correct");
-            audioSource.Stop();
+            alarmAudioSource.Stop();
+            myEmergencyScenario.ScenarioCompleted();
         }
     }
 
@@ -25,7 +25,7 @@ public class CollectingBarrelsVolume : MonoBehaviour
         if (other.GetComponent<ToxicChemical>())
         {
             Debug.Log("Collection Correct");
-            audioSource.Play();
+            alarmAudioSource.Play();
         }
     }
 
