@@ -16,7 +16,8 @@ public class CollectingBarrelsVolume : EmergencyScenarioQuestObject
         {
             Debug.Log("Collection Correct");
             alarmAudioSource.Stop();
-            myEmergencyScenario.ScenarioCompleted();
+            //myEmergencyScenario.ScenarioCompleted();
+            QuestCompleted();
         }
     }
 

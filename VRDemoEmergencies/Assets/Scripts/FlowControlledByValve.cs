@@ -32,7 +32,8 @@ public class FlowControlledByValve : EmergencyScenarioQuestObject
 
         if(valveOpenessPerCent <= 0)
         {
-            myEmergencyScenario.ScenarioCompleted();
+            //myEmergencyScenario.ScenarioCompleted();
+            QuestCompleted();
         }
     }
 
@@ -40,7 +41,8 @@ public class FlowControlledByValve : EmergencyScenarioQuestObject
     {
         var valveOpenessPerCent = associatedValve.GetValveOpenessPerCent();
 
-        var currentVolume = Mathf.RoundToInt(waterAudioSourceMaxVol * valveOpenessPerCent / 100f);
+        var currentVolume = waterAudioSourceMaxVol * valveOpenessPerCent / 100f;
+        Debug.Log("currentVolume " + currentVolume);
 
         waterAudioSource.volume = currentVolume;
     }

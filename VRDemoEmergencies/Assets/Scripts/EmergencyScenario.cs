@@ -40,16 +40,20 @@ public class EmergencyScenario : MonoBehaviour
         }
         Debug.Log("ScenarioCompleted");
         if(nextEmergencyScenario != null)
-        nextEmergencyScenario.InitiateScenario();
+        {
+            EmergencyTransition.instance.LoadEmergencyFading(nextEmergencyScenario);
+            //nextEmergencyScenario.InitiateScenario();
+
+        }
         isNextScenarioLoaded = true;
     }
 }
 
 public abstract class EmergencyScenarioQuestObject : MonoBehaviour
 {
-    public EmergencyScenario myEmergencyScenario;
 
-    private void QuestCompleted()
+    public EmergencyScenario myEmergencyScenario;
+    protected void QuestCompleted()
     {
         myEmergencyScenario.ScenarioCompleted();
         AudioManager.instance.PlayEffect("QuestCompleted");

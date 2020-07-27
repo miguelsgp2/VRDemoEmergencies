@@ -96,7 +96,8 @@ public class CodeLocker : EmergencyScenarioQuestObject
     private void GrantAccess()
     {
         accessLight.color = Color.green;
-        myEmergencyScenario.ScenarioCompleted();
+        //myEmergencyScenario.ScenarioCompleted();
+        QuestCompleted();
     }
 
     private class VerifiableString

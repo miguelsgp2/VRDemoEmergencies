@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneFader : Singleton<SceneFader>
 {
+    public EmergencyScenario emergencyToLoad;
     public Image img;
     public AnimationCurve curve;
 
@@ -18,6 +19,8 @@ public class SceneFader : Singleton<SceneFader>
     {
         StartCoroutine(FadeOut(scene));
     }
+
+
 
     IEnumerator FadeIn()
     {
