@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ValveMoving
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 8e2fe854b9f1cd246bda173ccd36b931, type: 3}
+  - {fileID: 8300000, guid: ac20d5b9c91b87f47a14c900b8ec326b, type: 3}
