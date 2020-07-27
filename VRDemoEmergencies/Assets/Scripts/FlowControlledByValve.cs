@@ -4,6 +4,8 @@ public class FlowControlledByValve : EmergencyScenarioQuestObject
 {
     public ParticleSystem waterFlowParticleSystem;
     public Valve associatedValve;
+    public AudioSource waterAudioSource;
+    private float waterAudioSourceMaxVol = 0.4f;
     private int maxParticlesFlow = 200;
     private float maxparticlesSpeed = 12f;
     private int currentParticlesFlow;
@@ -16,6 +18,8 @@ public class FlowControlledByValve : EmergencyScenarioQuestObject
 
     private void OnValveOpenessModifiedTriggered()
     {
+        UpdateWaterSoundvolume();
+
         var valveOpenessPerCent = associatedValve.GetValveOpenessPerCent();
 
         currentParticlesFlow = Mathf.RoundToInt(maxParticlesFlow * valveOpenessPerCent / 100f);
@@ -30,5 +34,14 @@ public class FlowControlledByValve : EmergencyScenarioQuestObject
         {
             myEmergencyScenario.ScenarioCompleted();
         }
+    }
+
+    private void UpdateWaterSoundvolume()
+    {
+        var valveOpenessPerCent = associatedValve.GetValveOpenessPerCent();
+
+        var currentVolume = Mathf.RoundToInt(waterAudioSourceMaxVol * valveOpenessPerCent / 100f);
+
+        waterAudioSource.volume = currentVolume;
     }
 }

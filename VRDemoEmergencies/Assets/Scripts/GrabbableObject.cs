@@ -14,6 +14,9 @@ public class GrabbableObject : MonoBehaviour, Interactable
     Transform playerTransform;
     public float forceProportionalController = 100f;
     public float maxSpeedGrabbed = 3;
+
+    private float hitSoundDelay = 1f;
+    private float hitSoundTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +24,13 @@ public class GrabbableObject : MonoBehaviour, Interactable
         screenAim = GameObject.FindObjectOfType<ScreenAim>();
         playerTransform = GameObject.FindObjectOfType<Player>().transform;
         isGrabbed = false;
+        hitSoundTimer = hitSoundDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
+        hitSoundTimer -= Time.deltaTime;
         //if (isGrabbed)
         //{
         //    //Debug.Log("grabbed");
@@ -101,5 +106,14 @@ public class GrabbableObject : MonoBehaviour, Interactable
     public void Interact()
     {
         GrabbOrUngrabb();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(hitSoundTimer <= 0f)
+        {
+            hitSoundTimer = hitSoundDelay;
+            AudioManager.instance.PlayEffect("MetalBarrelHit",transform.position);
+        }
     }
 }

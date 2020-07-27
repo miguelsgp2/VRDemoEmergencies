@@ -13,6 +13,10 @@ public class ScreenAim : MonoBehaviour
             var interactableObj = TryToInteractWithObject(objTransform);
             return interactableObj;
         }
+        else
+        {
+            AudioManager.instance.PlayEffect("ErrorNoInteraction");
+        }
         return null;
     }
 

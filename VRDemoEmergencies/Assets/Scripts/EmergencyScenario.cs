@@ -52,5 +52,6 @@ public abstract class EmergencyScenarioQuestObject : MonoBehaviour
     private void QuestCompleted()
     {
         myEmergencyScenario.ScenarioCompleted();
+        AudioManager.instance.PlayEffect("QuestCompleted");
     }
 }

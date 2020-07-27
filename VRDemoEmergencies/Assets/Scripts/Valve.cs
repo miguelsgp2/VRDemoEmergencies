@@ -13,37 +13,39 @@ public class Valve : MonoBehaviour
         ValveOpenessModifiedEvent.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            OpenValve10pCent();
-            Debug.Log("openning valve");
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            CloseValve10pCent();
-        }
-    }
-
     public void OpenValve10pCent()
     {
         valveOpenessPerCent = Mathf.Clamp(valveOpenessPerCent + 10f, 0, 100);
-        Debug.Log("valve openned");
-        ValveOpenessModifiedEvent.Invoke();
+        ValveOperated();
+        //Debug.Log("valve openned");
+        //AudioManager.instance.PlayEffect("ValveMoving");
+        //ValveOpenessModifiedEvent.Invoke();
     }
 
     public void CloseValve10pCent()
     {
         valveOpenessPerCent = Mathf.Clamp(valveOpenessPerCent - 10f, 0, 100);
-        ValveOpenessModifiedEvent.Invoke();
+        ValveOperated();
+        //ValveOpenessModifiedEvent.Invoke();
     }
 
     public float GetValveOpenessPerCent()
     {
         return valveOpenessPerCent;
+    }
+
+    private void ValveOperated()
+    {
+        if(valveOpenessPerCent != 0 || valveOpenessPerCent != 100)
+        {
+            AudioManager.instance.PlayEffect("ValveMoving",transform.position);
+        }
+        else
+        {
+            AudioManager.instance.PlayEffect("ValveFullyOperated",transform.position);
+        }
+
+        ValveOpenessModifiedEvent.Invoke();
     }
 
 }
