@@ -10,9 +10,10 @@ public class Cameraman : MonoBehaviour
 
     private void TakeMainCamera()
     {
-        Camera.main.transform.SetParent(CameraHoldingPosition);
-        Camera.main.transform.localPosition = Vector3.zero;
-        Camera.main.transform.localRotation = Quaternion.identity;
+        var mainCamera = Camera.main;
+        mainCamera.transform.SetParent(CameraHoldingPosition);
+        mainCamera.transform.localPosition = Vector3.zero;
+        mainCamera.transform.localRotation = Quaternion.identity;
 
     }
     private void Update()
